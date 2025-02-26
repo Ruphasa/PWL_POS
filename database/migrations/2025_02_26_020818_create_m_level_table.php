@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id('level_id');
             $table->string('level_kode',10)->unique();
             $table->string('level_nama', 100);
-            $table->timestamps();
         });
     }
 
