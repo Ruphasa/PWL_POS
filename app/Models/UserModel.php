@@ -18,4 +18,5 @@ class UserModel extends Model
         'nama',
         'password'
     ];
+    
 }

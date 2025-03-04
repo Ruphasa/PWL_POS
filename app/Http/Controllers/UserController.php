@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = UserModel::findOr(20,['user_id', 'nama'], function(){
+        $user = UserModel::findOr(20, ['user_id', 'nama'], function () {
             abort(404);
         });
         return view('user', ['data' => $user]);
