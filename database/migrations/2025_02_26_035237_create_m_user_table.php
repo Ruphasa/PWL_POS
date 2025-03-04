@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('username', 20)->unique(); // unique untuk memastikan tidak ada username yang sama
             $table->string('password');
             $table->string('nama', 100);
+            $table->timestamps();
             // Mendefinisikan Foreign Key pada kolom level_id mengacu pada kolom level_id di tabel m_level
             $table->unsignedBigInteger('level_id')->index(); // indexing untuk ForeignKey
             $table->foreign('level_id')->references('level_id')->on('m_level');
