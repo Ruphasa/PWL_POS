@@ -120,9 +120,9 @@ class UserController extends Controller
         $request->validate([
             // username harus diisi, berupa string, minimal 3 karakter,
             // dan bernilai unik di tabel m_user kolom username kecuali untuk user dengan id yang sedang diedit
-            'username' => 'required|string|min:3|unique:m_user,username,' . $id . ',user_id',
-            'nama' => 'required|string | max: 100', // nama harus diisi, berupa string, dan maksimal 100 karakter
-            'password' => 'nullable |min:5',
+            'username' => 'required|string|min:3|unique:m_user,username,'.$id.',user_id',
+            'nama' => 'required|string|max:100', // nama harus diisi, berupa string, dan maksimal 100 karakter
+            'password' => 'nullable|min:5',
             // password bisa diisi (minimal 5 karakter) dan bisa tidak diisi
             'level_id' => 'required|integer'
         ]);
