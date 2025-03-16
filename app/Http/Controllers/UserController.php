@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LevelModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -21,7 +22,7 @@ class UserController extends Controller
         ];
         $level = LevelModel::all();
         $activeMenu = 'user'; // set menu yang sedang aktif
-        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page,'level' => $level, 'activeMenu' => $activeMenu]);
+        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
     }
 
     public function create()
@@ -42,6 +43,12 @@ class UserController extends Controller
         return view('user.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
     }
 
+    public function create_ajax()
+    {
+        $level = LevelModel::select('level_id', 'level_nama')->get(); // ambil data level untuk ditampilkan di form
+        return view('user.create_ajax', ['level' => $level]);
+    }
+
     // Menyimpan data user baru
     public function store(Request $request)
     {
@@ -58,6 +65,34 @@ class UserController extends Controller
             'level_id' => $request->level_id
         ]);
         return redirect('/user')->with('success', 'Data user berhasil disimpan');
+    }
+
+    public function store_ajax(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'username' => 'required|string|min:3|unique:m_user,username',
+                'nama' => 'required|string|max:100',
+                'password' => 'required|min:6',
+                'level_id' => 'required|integer'
+            ];
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors()
+                ]);
+            }
+
+            UserModel::create($request->all());
+            return response()->json([
+                'status' => true,
+                'message' => 'Data user berhasil disimpan'
+            ]);
+        }
+        redirect('/');
     }
 
     public function list(Request $request)
@@ -120,7 +155,7 @@ class UserController extends Controller
         $request->validate([
             // username harus diisi, berupa string, minimal 3 karakter,
             // dan bernilai unik di tabel m_user kolom username kecuali untuk user dengan id yang sedang diedit
-            'username' => 'required|string|min:3|unique:m_user,username,'.$id.',user_id',
+            'username' => 'required|string|min:3|unique:m_user,username,' . $id . ',user_id',
             'nama' => 'required|string|max:100', // nama harus diisi, berupa string, dan maksimal 100 karakter
             'password' => 'nullable|min:5',
             // password bisa diisi (minimal 5 karakter) dan bisa tidak diisi
