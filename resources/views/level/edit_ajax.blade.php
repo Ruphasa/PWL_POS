@@ -28,34 +28,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Level Pengguna</label>
-                        <select name="level_id" id="level_id" class="form-control" required>
-                            <option value="">- Pilih Level -</option>
-                            @foreach($level as $l)
-                                <option {{ ($l->level_id == $level->level_id) ? 'selected' : '' }} value="{{ $l->level_id }}">
-                                    {{ $l->level_nama }}
-                                </option>
-                            @endforeach
-                        </select>
-                        <small id="error-level_id" class="error-text form-text text-danger"></small>
-                    </div>
-                    <div class="form-group">
-                        <label>Levelname</label>
-                        <input value="{{ $level->levelname }}" type="text" name="levelname" id="levelname" class="form-control"
+                        <label>Kode Level</label>
+                        <input value="{{ $level->level_kode }}" type="text" name="level_kode" id="level_kode" class="form-control"
                             required>
                         <small id="error-levelname" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Nama</label>
-                        <input value="{{ $level->nama }}" type="text" name="nama" id="nama" class="form-control" required>
+                        <label>Nama Level</label>
+                        <input value="{{ $level->level_nama }}" type="text" name="level_nama" id="level_nama" class="form-control" required>
                         <small id="error-nama" class="error-text form-text text-danger"></small>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input value="" type="password" name="password" id="password" class="form-control">
-                        <small class="form-text text-muted">Abaikan jika tidak ingin ubah
-                            password</small>
-                        <small id="error-password" class="error-text form-text text-danger"></small>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -69,10 +50,8 @@
         $(document).ready(function () {
             $("#form-edit").validate({
                 rules: {
-                    level_id: { required: true, number: true },
-                    levelname: { required: true, minlength: 3, maxlength: 20 },
-                    nama: { required: true, minlength: 3, maxlength: 100 },
-                    password: { minlength: 6, maxlength: 20 }
+                    level_kode: { required: true, minlength: 3, maxlength: 20 },
+                    level_nama: { required: true, minlength: 3, maxlength: 100 }
                 },
                 submitHandler: function (form) {
                     $.ajax({

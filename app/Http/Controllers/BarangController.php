@@ -185,7 +185,7 @@ class BarangController extends Controller
     public function edit_ajax(string $id)
     {
         $barang = BarangModel::find($id);
-        $kategori = KategoriModel::select('level_id', 'level_nama')->get();
+        $kategori = KategoriModel::select('kategori_id', 'kategori_nama')->get();
         return view('barang.edit_ajax', ['barang' => $barang, 'kategori' => $kategori]);
     }
 
@@ -194,10 +194,11 @@ class BarangController extends Controller
         // cek apakah request dari ajax 
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'level_id' => 'required|integer',
-                'barangname' => 'required|max:20|unique:m_barang,barangname,' . $id . ',barang_id',
-                'nama'     => 'required|max:100',
-                'password' => 'nullable|min:6|max:20'
+                'kategori_id' => 'required|integer',
+                'barang_kode' => 'required|string|min:3|unique:m_barang,barang_kode,' . $id . ',barang_id',
+                'barang_nama' => 'required|string|max:100',
+                'harga_jual' => 'required|integer',
+                'harga_beli' => 'required|integer'
             ];
 
             // use Illuminate\Support\Facades\Validator; 

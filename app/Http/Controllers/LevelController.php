@@ -167,10 +167,8 @@ class LevelController extends Controller
         // cek apakah request dari ajax 
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'level_id' => 'required|integer',
-                'levelname' => 'required|max:20|unique:m_level,level_name,' . $id . ',level_id',
-                'nama'     => 'required|max:100',
-                'password' => 'nullable|min:6|max:20'
+                'level_kode' => 'required|string|min:3|unique:m_level,level_kode,' . $id . ',level_id',
+                'level_nama' => 'required|string|max:100'
             ];
 
             // use Illuminate\Support\Facades\Validator; 

@@ -168,10 +168,8 @@ class KategoriController extends Controller
         // cek apakah request dari ajax 
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'level_id' => 'required|integer',
-                'kategoriname' => 'required|max:20|unique:m_kategori,kategoriname,' . $id . ',kategori_id',
-                'nama'     => 'required|max:100',
-                'password' => 'nullable|min:6|max:20'
+                'kategori_kode' => 'required|string|min:3|unique:m_kategori,kategori_kode,' . $id . ',kategori_id',
+                'kategori_nama' => 'required|string|max: 100',
             ];
 
             // use Illuminate\Support\Facades\Validator; 

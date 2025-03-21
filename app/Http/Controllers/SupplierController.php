@@ -166,10 +166,9 @@ class SupplierController extends Controller
         // cek apakah request dari ajax 
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'level_id' => 'required|integer',
-                'suppliername' => 'required|max:20|unique:m_supplier,suppliername,' . $id . ',supplier_id',
-                'nama'     => 'required|max:100',
-                'password' => 'nullable|min:6|max:20'
+                'supplier_kode' => 'required|string|min:3|unique:m_supplier,supplier_kode,' . $id . ',supplier_id',
+                'supplier_nama' => 'required|max:100',
+                'supplier_alamat' => 'required|max:100'
             ];
 
             // use Illuminate\Support\Facades\Validator; 

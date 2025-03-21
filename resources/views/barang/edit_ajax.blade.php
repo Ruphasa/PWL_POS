@@ -52,12 +52,12 @@
                     </div>
                     <div class="form-group">
                         <label>Harga Beli</label>
-                        <input value="{{ $barang->barang_nama }}" type="text" name="harga_beli" id="harga_beli" class="form-control" required>
+                        <input value="{{ $barang->harga_beli }}" type="text" name="harga_beli" id="harga_beli" class="form-control" required>
                         <small id="error-harga_beli" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
                         <label>Harga Jual</label>
-                        <input value="{{ $barang->barang_nama }}" type="text" name="harga_jual" id="harga_jual" class="form-control" required>
+                        <input value="{{ $barang->harga_jual }}" type="text" name="harga_jual" id="harga_jual" class="form-control" required>
                         <small id="error-harga_jual" class="error-text form-text text-danger"></small>
                     </div>
                 </div>
@@ -72,10 +72,21 @@
         $(document).ready(function () {
             $("#form-edit").validate({
                 rules: {
-                    level_id: { required: true, number: true },
-                    barangname: { required: true, minlength: 3, maxlength: 20 },
-                    nama: { required: true, minlength: 3, maxlength: 100 },
-                    password: { minlength: 6, maxlength: 20 }
+                    kategori_id: {
+                        required: true
+                    },
+                    barang_kode: {
+                        required: true
+                    },
+                    barang_nama: {
+                        required: true
+                    },
+                    harga_beli: {
+                        required: true
+                    },
+                    harga_jual: {
+                        required: true
+                    }
                 },
                 submitHandler: function (form) {
                     $.ajax({
