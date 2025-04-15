@@ -292,7 +292,7 @@ class BarangController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
                 // validasi file harus xls atau xlsx, max 1MB
-                'file_barang' => ['required', 'mimes:xlsx', 'max:1024']
+                'file_barang' => 'required|mimes:xls,xlsx|max:1024'
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
@@ -328,12 +328,12 @@ class BarangController extends Controller
                 }
                 return response()->json([
                     'status' => true,
-                    'message' => 'Data berhasil diimport'
+                    'message' => 'Data berhasil di import'
                 ]);
             } else {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Tidak ada data yang diimport'
+                    'message' => 'Tidak ada data yang di import'
                 ]);
             }
         }
