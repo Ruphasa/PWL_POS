@@ -45,15 +45,9 @@ class WelcomeController extends Controller
         // Move the uploaded file to the target directory
         $request->profileImage->move($imagePath, $imageName);
 
-        // Update the user's image field in the database
-        // $user->update([
-        //     'image' => $imageName,
-        // ]);
-
         return response()->json([
             'status' => true,
             'message' => 'Profile image updated successfully',
-            'redirect' => route('/'),
         ]);
     }
 }

@@ -92,13 +92,12 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {
-        Route::group(['prefix' => 'barang'], function () {
+        Route::group(['prefix' => 'barang','middleware'=>'authorize:ADM,MNG,STF'], function () {
             Route::get('/', [BarangController::class, 'index']);
             Route::post('/list', [BarangController::class, 'list']);
             Route::post('/', [BarangController::class, 'store']);
             Route::get('/create_ajax', [BarangController::class, 'create_ajax']);
-            Route::post('/ajax', [BarangController::class, 'store_ajax']);
+            Route::p ost('/ajax', [BarangController::class, 'store_ajax']);
             Route::get('/import',[BarangController::class,'import']);
             Route::post('/import_ajax',[BarangController::class,'import_ajax']);
             Route::get('/export_excel', [BarangController::class, 'export_excel']);
@@ -112,7 +111,6 @@ Route::middleware('auth')->group(function () {
             Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
             Route::delete('/{id}', [BarangController::class, 'destroy']);
         });
-    });
 
     Route::middleware(['authorize:ADM,MNG'])->group(function () {
         Route::group(['prefix' => 'supplier'], function () {

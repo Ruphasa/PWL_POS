@@ -86,8 +86,7 @@
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                                 Nora Silvester
-                                <span class="float-right text-sm text-warning"><i
-                                        class="fas fa-star"></i></span>
+                                <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
                             </h3>
                             <p class="text-sm">The subject goes here</p>
                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
@@ -138,13 +137,15 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-                <img src="/../PWL_POS/public/Adminlte/dist/img/{{ Auth::user()->username }}.png" alt="" class="img-size-32 img-circle mr-2">
+                <img src="/../PWL_POS/public/Adminlte/dist/img/{{ Auth::user()->username }}.png" alt=""
+                    class="img-size-32 img-circle mr-2">
                 <span class="d-none d-sm-inline-block">{{ Auth::user()->username }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <div class="dropdown-item">
                     <div class="media">
-                        <img src="/../PWL_POS/public/Adminlte/dist/img/{{ Auth::user()->username }}.png" alt="" class="img-size-50 img-circle mr-3">
+                        <img src="/../PWL_POS/public/Adminlte/dist/img/{{ Auth::user()->username }}.png" alt=""
+                            class="img-size-50 img-circle mr-3">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                                 {{ Auth::user()->username }}
@@ -183,7 +184,8 @@
         </li>
     </ul>
 </nav>
-<div class="modal fade" id="changeImageModal" tabindex="-1" role="dialog" aria-labelledby="changeImageModalLabel" aria-hidden="true">
+<div class="modal fade" id="changeImageModal" tabindex="-1" role="dialog" aria-labelledby="changeImageModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -192,12 +194,13 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ url('/welcome/updateProfileImage') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('/welcome/updateProfileImage') }}" method="POST" id="changeImageForm" name="changeImageForm" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="profileImage">Upload New Image</label>
-                        <input type="file" class="form-control" id="profileImage" name="profileImage" accept="image/*" required>
+                        <input type="file" class="form-control" id="profileImage" name="profileImage" accept="image/*"
+                            required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -208,28 +211,32 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#changeImageForm').on('submit', function (e) {
-            e.preventDefault(); // Prevent the default form submission
+            e.preventDefault();
+            console.log('Form submitted'); // Tambahkan log
 
             let formData = new FormData(this);
 
             $.ajax({
-                url: $(this).attr('action'), // Use the form's action attribute
+                url: $(this).attr('action'),
                 type: 'POST',
                 data: formData,
                 contentType: false,
                 processData: false,
                 success: function (response) {
+                    console.log('Success:', response); // Tambahkan log
                     if (response.status) {
-                        alert(response.message); // Show success message
-                        location.reload(); // Reload the page to reflect changes
+                        alert(response.message);
+                        location.reload(); // Refresh halaman
                     } else {
                         alert('Failed to update profile image.');
                     }
                 },
                 error: function (xhr) {
+                    console.error('Error:', xhr); // Tambahkan log
                     // Handle validation errors
                     if (xhr.status === 422) {
                         let errors = xhr.responseJSON.errors;
