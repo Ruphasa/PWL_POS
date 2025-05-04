@@ -26,8 +26,8 @@ class UserController extends Controller
         return UserModel::find($user);
     }
 
-    public function destroy(UserModel $penjualan){
-        $penjualan->delete();
+    public function destroy(UserModel $user){
+        $user->delete();
         return response()->json([
             'success' => true,
             'message' => 'User deleted successfully',

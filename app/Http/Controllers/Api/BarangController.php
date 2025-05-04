@@ -26,9 +26,8 @@ class BarangController extends Controller
         return BarangModel::find($barang);
     }
 
-    public function destroy(BarangModel $penjualanDetail,BarangModel $stok){
-        $penjualanDetail->delete();
-        $stok->delete();
+    public function destroy(BarangModel $user){
+        $user->delete();
         return response()->json([
             'success' => true,
             'message' => 'Barang deleted successfully',

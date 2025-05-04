@@ -26,8 +26,8 @@ class KategoriController extends Controller
         return KategoriModel::find($kategori);
     }
 
-    public function destroy(KategoriModel $barang){
-        $barang->delete();
+    public function destroy(KategoriModel $user){
+        $user->delete();
         return response()->json([
             'success' => true,
             'message' => 'Kategori deleted successfully',

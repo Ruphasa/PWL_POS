@@ -6,6 +6,7 @@ use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Contracts\Providers\JWT;
@@ -31,7 +32,8 @@ class UserModel extends Authenticatable implements JWTSubject
         'level_id',
         'username',
         'nama',
-        'password'
+        'password',
+        'image'
     ];
 
     protected $hidden = [
@@ -41,6 +43,13 @@ class UserModel extends Authenticatable implements JWTSubject
     protected $casts = [
         'password' => 'hashed'
     ];
+
+    public function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn($image) => asset('storage/posts/' . $image),
+        );
+    }
     
     public function level():BelongsTo
     {
