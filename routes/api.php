@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\kategoriController;
 use App\Http\Controllers\Api\LevelController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\LogoutController;
+use App\Http\Controllers\Api\PenjualanController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -59,4 +60,12 @@ Route::group(['prefix'=>'kategoris'],function(){
     Route::get('/{kategori}',[kategoriController::class,'show']);
     Route::put('/{kategori}',[kategoriController::class,'update']);
     Route::delete('/{kategori}',[kategoriController::class,'destroy']);
+});
+
+Route::group(['prefix'=>'penjualan'],function(){
+    Route::get('/',[PenjualanController::class,'index']);
+    Route::post('/',[PenjualanController::class,'store']);
+    Route::get('/{penjualan}',[PenjualanController::class,'show']);
+    Route::put('/{penjualan}',[PenjualanController::class,'update']);
+    Route::delete('/{penjualan}',[PenjualanController::class,'destroy']);
 });

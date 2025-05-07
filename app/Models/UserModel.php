@@ -2,14 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\Contracts\Providers\JWT;
 
 class UserModel extends Authenticatable implements JWTSubject
 {
@@ -33,15 +30,7 @@ class UserModel extends Authenticatable implements JWTSubject
         'username',
         'nama',
         'password',
-        'image'
-    ];
-
-    protected $hidden = [
-        'password'
-    ];
-
-    protected $casts = [
-        'password' => 'hashed'
+        'image' //tambahkan
     ];
 
     public function image(): Attribute
@@ -50,6 +39,14 @@ class UserModel extends Authenticatable implements JWTSubject
             get: fn($image) => asset('storage/posts/' . $image),
         );
     }
+    protected $hidden = [
+        'password'
+    ];
+
+    protected $casts = [
+        'password' => 'hashed'
+    ];
+
     
     public function level():BelongsTo
     {
